@@ -168,6 +168,28 @@ while (!exec.StdOut.AtEndOfStream) {
 }
 ```
 
+### JavaScript (Node.js) Example
+
+```javascript
+const { exec } = require('child_process');
+
+// Comando para ejecutar el ZPLPrintDriver.exe
+const command = 'ZPLPrintDriver.exe --path "C:\\path\\to\\your\\file.zpl" --printer "192.168.1.100" --port 9100 --copies 1 --timeout 10';
+
+// Ejecutar el comando
+exec(command, (error, stdout, stderr) => {
+    if (error) {
+        console.error(`Error: ${error.message}`);
+        return;
+    }
+    if (stderr) {
+        console.error(`Stderr: ${stderr}`);
+        return;
+    }
+    console.log(`Stdout: ${stdout}`);
+});
+```
+
 ## Error Handling
 
 In case of errors (e.g., invalid printer IP, file not found, etc.), the program will return a JSON response with the following format:
