@@ -173,10 +173,8 @@ while (!exec.StdOut.AtEndOfStream) {
 ```javascript
 const { exec } = require('child_process');
 
-// Comando para ejecutar el ZPLPrintDriver.exe
 const command = 'ZPLPrintDriver.exe --path "C:\\path\\to\\your\\file.zpl" --printer "192.168.1.100" --port 9100 --copies 1 --timeout 10';
 
-// Ejecutar el comando
 exec(command, (error, stdout, stderr) => {
     if (error) {
         console.error(`Error: ${error.message}`);
