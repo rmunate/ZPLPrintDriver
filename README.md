@@ -259,6 +259,102 @@ Sub PrintZPL()
 End Sub
 ```
 
+### F# Example
+
+In F#, you can use the `System.Diagnostics.Process` class to execute the command similarly to C#.
+
+```fsharp
+open System.Diagnostics
+
+let command = "ZPLPrintDriver.exe --path \"C:\\path\\to\\your\\file.zpl\" --printer \"192.168.1.100\" --port 9100 --copies 1 --timeout 10"
+
+let process = new Process()
+process.StartInfo.FileName <- "cmd.exe"
+process.StartInfo.Arguments <- sprintf "/c %s" command
+process.StartInfo.RedirectStandardOutput <- true
+process.StartInfo.UseShellExecute <- false
+process.StartInfo.CreateNoWindow <- true
+
+process.Start() |> ignore
+let output = process.StandardOutput.ReadToEnd()
+printfn "%s" output
+process.WaitForExit()
+```
+
+### Rust Example
+
+In Rust, you can use the `std::process::Command` module to execute the command.
+
+```rust
+use std::process::Command;
+
+fn main() {
+    let output = Command::new("ZPLPrintDriver.exe")
+        .arg("--path")
+        .arg("C:\\path\\to\\your\\file.zpl")
+        .arg("--printer")
+        .arg("192.168.1.100")
+        .arg("--port")
+        .arg("9100")
+        .arg("--copies")
+        .arg("1")
+        .arg("--timeout")
+        .arg("10")
+        .output()
+        .expect("Failed to execute process");
+
+    println!("{}", String::from_utf8_lossy(&output.stdout));
+}
+```
+
+### Go Example
+
+In Go, you can use the `os/exec` package to call the executable.
+
+```go
+package main
+
+import (
+	"fmt"
+	"os/exec"
+)
+
+func main() {
+	cmd := exec.Command("ZPLPrintDriver.exe", "--path", "C:\\path\\to\\your\\file.zpl", "--printer", "192.168.1.100", "--port", "9100", "--copies", "1", "--timeout", "10")
+
+	output, err := cmd.Output()
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+
+	fmt.Println(string(output))
+}
+```
+
+### Kotlin Example
+
+In Kotlin, you can use the `ProcessBuilder` class to run the command.
+
+```kotlin
+import java.io.BufferedReader
+import java.io.InputStreamReader
+
+fun main() {
+    val command = listOf("ZPLPrintDriver.exe", "--path", "C:\\path\\to\\your\\file.zpl", "--printer", "192.168.1.100", "--port", "9100", "--copies", "1", "--timeout", "10")
+    val process = ProcessBuilder(command).start()
+
+    val reader = BufferedReader(InputStreamReader(process.inputStream))
+    var line: String? = reader.readLine()
+    while (line != null) {
+        println(line)
+        line = reader.readLine()
+    }
+
+    process.waitFor()
+}
+```
+
 ---
 
 ## Error Handling
@@ -279,14 +375,14 @@ For successful execution, the output will look like this:
 ```json
 {
     "result": "Success",
-    "path": "example.zpl",
+    "file_path": "example.zpl",
     "copies": 1,
-    "port": 9100,
-    "timeout": 10,
-    "printer": null,
-    "usb": true,
-    "vendor_id": "0A5F",
-    "product_id": "0081"
+    "usb_connection": true,
+    "execution_time": {
+        "start_timestamp": "2024-09-30 12:44:28",
+        "end_timestamp": "2024-09-30 12:44:28",
+        "duration_seconds": 0.1
+    }
 }
 ```
 
