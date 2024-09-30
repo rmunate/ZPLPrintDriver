@@ -11,4 +11,4 @@ build/
 dist/
 
 # PyInstaller spec file
-ZPLUniversalPrintDriver.spec
+ZPLPrintDriver.spec
