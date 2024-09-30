@@ -1,1 +1,14 @@
+# Python files
 ZPLPrintDriver.py
+example.zpl
+requirements.txt
+
+# Virtual environment
+venv/
+
+# Build and distribution directories
+build/
+dist/
+
+# PyInstaller spec file
+ZPLUniversalPrintDriver.spec

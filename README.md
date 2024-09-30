@@ -1,6 +1,6 @@
-# ZPL Print Universal Driver
+## ZPL Print Universal Driver (Windows)
 
-`ZPLPrintDriver.exe` is a versatile command-line tool for sending ZPL (Zebra Programming Language) code to network-connected Zebra printers. It is designed to be easily integrated into various programming environments that support console command execution.
+`ZPLPrintDriver.exe` is a versatile command-line tool for sending ZPL (Zebra Programming Language) code to network-connected and USB-connected Zebra printers. It is designed for easy integration into various programming environments that support console command execution.
 
 ## Features
 
@@ -16,31 +16,40 @@ You can run the program directly from the command line by providing the necessar
 
 ### Command Line Arguments
 
+#### Print Over Network
+
 - `--path` (required): Full path to the ZPL file you want to send to the printer.
 - `--printer` (required): The IP address of the Zebra printer.
 - `--port` (optional): Printer port number. Default is `9100`.
 - `--copies` (optional): Number of copies to print. Default is `1`.
 - `--timeout` (optional): Timeout in seconds for the network connection. Default is `10` seconds.
 
-### Command Line Example
-
 ```bash
 ZPLPrintDriver.exe --path "C:\path\to\your\file.zpl" --printer "192.168.1.100" --port 9100 --copies 2 --timeout 10
 ```
 
-### Explanation
+#### Print Over USB
 
-- `--path`: Specifies the ZPL file located at `C:\path\to\your\file.zpl`.
-- `--printer`: The printer's IP address is `192.168.1.100`.
-- `--port`: The printer is accessed on port `9100`, which is the default port for most Zebra printers.
-- `--copies`: Two copies of the label will be printed.
-- `--timeout`: The command will wait up to 10 seconds for a response from the printer before timing out.
+To print using a USB connection, you need to obtain the vendorId and productId from your printer's properties. Use these values in the format USB:vendorId:productId. For example:
+
+- `--path` (required): Full path to the ZPL file you want to send to the printer.
+- `--usb` (required): Indicates that the operation will use USB.
+- `--vendor_id` (required): Value extracted from the hardware identifier properties.
+- `--product_id` (required): Value extracted from the hardware identifier properties.
+
+![ExtractData](https://github.com/user-attachments/assets/7cae9537-80f7-4423-8d96-984648669c25)
+
+Where to find values: USB\VID_`0A5F`&PID_`0081`, vendor_id and product_id, respectively.
+
+```bash
+ZPLPrintDriver.exe --path="example.zpl" --usb --vendor_id="0A5F" --product_id="0081"
+```
 
 ---
 
 ## Using from Various Programming Languages
 
-### Python Example
+### Python Example (Network)
 
 In Python, you can use the `subprocess` module to call `ZPLPrintDriver.exe`.
 
@@ -55,6 +64,29 @@ command = [
     "--port", "9100",
     "--copies", "1",
     "--timeout", "10"
+]
+
+# Execute the command
+result = subprocess.run(command, capture_output=True, text=True)
+
+# Print the output
+print(result.stdout)
+```
+
+### Python Example (USB)
+
+In Python, you can use the `subprocess` module to call `ZPLPrintDriver.exe`.
+
+```python
+import subprocess
+
+# Command to run the executable with arguments
+command = [
+    "ZPLPrintDriver.exe",
+    "--path", "C:\\path\\to\\your\\file.zpl",
+    "--usb",
+    "--vendor_id", "0A5F",
+    "--product_id", "0081"
 ]
 
 # Execute the command
@@ -239,15 +271,21 @@ If there are any errors (e.g., invalid printer IP, file not found), the program 
 }
 ```
 
+## Successful Output
+
 For successful execution, the output will look like this:
 
 ```json
 {
-  "result": "Success",
-  "path": "C:\\path\\to\\your\\file.zpl",
-  "printer": "192.168.1.100",
-  "port": 9100,
-  "copies": 2
+    "result": "Success",
+    "path": "example.zpl",
+    "copies": 1,
+    "port": 9100,
+    "timeout": 10,
+    "printer": null,
+    "usb": true,
+    "vendor_id": "0A5F",
+    "product_id": "0081"
 }
 ```
 
@@ -255,4 +293,12 @@ For successful execution, the output will look like this:
 
 ## License
 
-This project is licensed under the MIT License. See the `LICENSE` file for details.
+This project is under the [MIT License](https://choosealicense.com/licenses/mit/).
+
+🌟 Support My Projects! 🚀
+
+[![Become a Sponsor](https://img.shields.io/badge/-Become%20a%20Sponsor-blue?style=for-the-badge&logo=github)](https://github.com/sponsors/rmunate)
+
+Make any contributions you see fit; the code is entirely yours. Together, we can do amazing things and improve the world of development. Your support is invaluable. ✨
+
+If you have ideas, suggestions, or just want to collaborate, we are open to everything! Join our community and be part of our journey to success! 🌐👩‍💻👨‍💻
