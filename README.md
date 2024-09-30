@@ -25,7 +25,7 @@ You can run the program directly from the command line by providing the necessar
 - `--timeout` (optional): Timeout in seconds for the network connection. Default is `10` seconds.
 
 ```bash
-ZPLPrintDriver.exe --path "C:\path\to\your\file.zpl" --printer "192.168.1.100" --port 9100 --copies 2 --timeout 10
+.\ZPLPrintDriver.exe --path "C:\path\to\your\file.zpl" --printer "192.168.1.100" --port 9100 --copies 2 --timeout 10
 ```
 
 #### Print Over USB
@@ -43,7 +43,7 @@ To print using a USB connection, you need to obtain the vendorId and productId f
 Where to find values: USB\VID_`0A5F`&PID_`0081`, vendor_id and product_id, respectively.
 
 ```bash
-ZPLPrintDriver.exe --path="example.zpl" --usb --vendor_id="0A5F" --product_id="0081"
+.\ZPLPrintDriver.exe --path="example.zpl" --usb --vendor_id="0A5F" --product_id="0081"
 ```
 
 ---
