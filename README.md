@@ -37,7 +37,8 @@ To print using a USB connection, you need to obtain the vendorId and productId f
 - `--vendor_id` (required): Value extracted from the hardware identifier properties.
 - `--product_id` (required): Value extracted from the hardware identifier properties.
 
-![ExtractData](https://github.com/user-attachments/assets/7cae9537-80f7-4423-8d96-984648669c25)
+![ExtractData](https://github.com/user-attachments/assets/efab360e-90b8-4f14-8067-55d4aaa9702d)
+
 
 Where to find values: USB\VID_`0A5F`&PID_`0081`, vendor_id and product_id, respectively.
 
